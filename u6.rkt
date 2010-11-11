@@ -87,4 +87,4 @@
                 (else (cons (cons x (first y)) (cdr y)))))
           '() lst)))
     
-(separate '(1 1 1 2 2 3 3 3 3))
+(separate '(1 1 1 3 3 2 2 3 3 3 3 4 5 4 4))
