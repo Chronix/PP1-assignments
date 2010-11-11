@@ -76,8 +76,15 @@
                                       (lambda (x) (expt 10 x))))))
       (foldr (lambda (el1 el2 result) (+ (* el1 el2) result)) 0 decNums powers))))
 
+(define list-to-dec2
+  (lambda (decNums)
+    (foldl (lambda (x y) (+ (* 10 y) x)) 0 decNums)))
+
 ;(list-to-dec '(1 6 3 8 4))
 ;(list-to-dec '(3 3 6 6 9))
+
+;(list-to-dec2 '(1 6 3 8 4))
+;(list-to-dec2 '(3 3 6 6 9))
 
 (define separate
   (lambda (lst)
