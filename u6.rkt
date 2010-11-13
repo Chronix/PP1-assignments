@@ -58,6 +58,10 @@
 
 (define my-reverse
   (lambda (lst)
+    (foldr (lambda (x y) (append y (list x))) '() lst)))
+
+(define my-reverse2
+  (lambda (lst)
     (foldl (lambda (x y) (cons x y)) '() lst)))
 
 ;(my-reverse '(a b c d e f))
@@ -89,10 +93,10 @@
 (define separate
   (lambda (lst)
     (foldr (lambda (x y)
-             (cond
-               ((or (null? y) (not (equal? (caar y) x))) (cons (list x) y))
-                (else (cons (cons x (first y)) (cdr y)))))
+             (if (or (null? y) (not (equal? (caar y) x)))
+                (cons (list x) y)
+                (cons (cons x (first y)) (cdr y))))
           '() lst)))
-    
+
 ;(separate '(1 1 1 2 2 3 3 3 3))
 ;(separate '(a b b b b a a a c d e e))
