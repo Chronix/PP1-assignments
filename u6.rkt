@@ -65,6 +65,7 @@
     (foldl (lambda (x y) (cons x y)) '() lst)))
 
 ;(my-reverse '(a b c d e f))
+;(my-reverse2 '(a b c d e f))
 
 (define my-expt
   (lambda (num pow)
