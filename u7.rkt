@@ -5,6 +5,11 @@
       ((and (> m 0) (= n 0)) (ack (- m 1) 1))
       (else (ack (- m 1) (ack m (- n 1)))))))
 
+;(ack 0 3)
+;(ack 1 3)
+;(ack 3 3)
+;(ack 3 4)
+
 (define leibniz-iter
   (lambda (sign denom value counter)
     (if (= counter 0)
@@ -13,12 +18,12 @@
 
 (define leibniz-pi
   (lambda (x)
-    (exact->inexact (* 4 (leibniz-iter 1 1 0 x)))))
+    (exact->inexact (* 4 (+ 1 (leibniz-iter -1 3 0 x))))))
 
-;(leibniz-pi 10)
-;(leibniz-pi 100)
-;(leibniz-pi 2000)
-;(leibniz-pi 20000) => 3.1415426535898243
+(leibniz-pi 10)
+(leibniz-pi 100)
+(leibniz-pi 2000)
+;(leibniz-pi 20000) ;=> 3.141642651089887
 
 (define perfect-num-iter
   (lambda (i num sum)
@@ -39,16 +44,20 @@
 
 (define bisect
   (lambda (func mid left right precision)
-    (if (> (abs (- right left)) (* 2 precision))
+    (if (> (abs (- right left)) precision)
        (cond
          ((< (* (func left) (func mid)) 0) (bisect func (/ (+ mid left) 2) left mid precision))
          ((< (* (func right) (func mid)) 0) (bisect func (/ (+ mid right) 2) mid right precision))
-         (else (error "no root")))
+         (else "noroot"))
        mid)))
 
 (define root
   (lambda (func x1 x2)
-    (bisect func (/ (+ x1 x2) 2) x1 x2 0.001)))
+    (let ((result (bisect func (/ (+ x1 x2) 2) x1 x2 0.001)))
+      (if (equal?  result "noroot")
+         (error "No root" x1 x2)
+         result))))
+
 
 ;(root (lambda (x) (+ (* 3 x x) (* 6 x) -9)) -5.0 0.0)
 ;(root (lambda (x) (+ (* 3 x x) (* 6 x) -9)) 0.0 5.0)
